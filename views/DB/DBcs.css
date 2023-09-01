@@ -1,0 +1,30 @@
+#DB_body {
+  text-align: center;
+  color: #666;
+  font: 14px/24px
+    "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light","Helvetica Neue", "Lucida Grande",
+                Helvetica,   Arial,  Sans-Serif;
+}
+
+#DB_table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th,td {
+  padding: 6px 15px;
+}
+
+th {
+  background: #42444e;
+  color: #fff;
+}
+td {
+  border-right: 1px solid #c6c9cc;
+  border-bottom: 1px solid #c6c9cc;
+}
+td {
+  text-align: center;
+  background: #eaeaed;
+}

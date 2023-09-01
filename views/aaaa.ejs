@@ -1,0 +1,48 @@
+<html lang="EN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <!-- Custom styles for this Template -->
+    <link rel="stylesheet" href="DB/DBcs.css"> 
+  
+  </head>
+
+
+<body>
+  <table id="DB_table">
+    <thead>
+    <tr>
+        <th>UID</th>
+        <th>사용자</th>
+        <th>Password</th>
+        <th>접속코드</th>
+        <th>이미지파일</th>
+        <th>달력</th>
+    </tr>
+    </thead>
+  
+  <% for(var i = 0; i < data.length+99; i++) {%>
+    <tr>
+        <td><%=i%></td>
+        <td><%= data[4].ID %></td>
+        <td><%= data[4].PW %></td>
+        <td><%= data[4].Ptest %></td>
+        <td><a href="http://onecut.kr/PhotoImages/r23/20230304_1300_77yy8Q.png">링크</a></td>
+        <td><a href="/Calendar" style="color :rgb(250, 3, 250)">Calendar</a></td>
+    </tr>
+  <% } %>
+  </table>
+</body>
+
+<script>
+/*
+$('a').click(function(){
+  fetch('/Calendar').then(function(response){
+    response.text().then(function(text){$('body').html(text)});
+});
+});
+*/
+</script> 
+
+</html>
