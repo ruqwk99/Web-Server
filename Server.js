@@ -34,6 +34,20 @@ app.get('/', function(req, res){
     })
 });
 
+app.get('/receive-message', function(req, res){ 
+
+    res.render('onecut.ejs', {}, function(err ,html){
+    // data라는 이름으로 전달         lkye
+    // ejs 파일에서는 data[1].a 와 같은 형식으로 사용
+        if (err)
+        console.log(err);
+        
+        console.log("데이터베이스 재HTML구동");
+
+        res.send(html); // 응답 종료
+    })
+});
+
 app.listen(3333, function() {
     console.log('App DB-Server on port -3333-');
   });
