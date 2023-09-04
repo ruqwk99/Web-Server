@@ -34,6 +34,13 @@ app.get('/', function(req, res){
     })
 });
 
+app.post('/api/data', (req, res) => {
+  //const data = { message: 'Hello from Node.js server!' };
+  //res.json(data);
+  console.log("통신확인!");
+  res.status(200).send("요청이 성공적으로 처리되었습니다.");
+});
+
 app.get('/receive-message', function(req, res){ 
 
     res.render('onecut.ejs', {}, function(err ,html){
