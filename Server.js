@@ -8,6 +8,7 @@ const app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+//TEST
 
 //public 미들웨어
 app.use(express.static('views')); 
