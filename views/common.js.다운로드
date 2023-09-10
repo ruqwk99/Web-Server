@@ -1,0 +1,382 @@
+/**************************************************************************************************
+ * @file       : common.js
+ * @description: 공통으로 사용하는 JavaScript
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+  var Base64 = {
+ 	_keyStr     : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+   ,encode      : function(input)  {
+		var output = "";
+        var chr1;
+        var chr2;
+        var chr3;
+        var enc1;
+        var enc2;
+        var enc3;
+        var enc4;
+        var i      = 0;
+
+		input = Base64._utf8_encode(input);
+
+		while(i < input.length) {
+            chr1   = input.charCodeAt(i++);
+            chr2   = input.charCodeAt(i++);
+            chr3   = input.charCodeAt(i++);
+ 
+            enc1   = chr1 >> 2;
+            enc2   = ((chr1 & 3)  << 4) | (chr2 >> 4);
+            enc3   = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4   = chr3 & 63;
+ 
+            if(isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if(isNaN(chr3)) {
+                enc4 = 64;
+            }
+ 
+            output = output 
+                   + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2)
+                   + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+		}
+
+		return output;
+   }
+   ,_utf8_encode: function(string) {
+        var utftext = "";
+        	string  = string.replace(/\r\n/g,"\n");
+ 
+        for(var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+ 
+            if(c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+        }
+ 
+        return utftext;
+   }
+ }
+ 
+$(document).ready(function(){
+	$(window).resize(function(){
+		var winH       = $(window).height();
+
+		//#header: 화면 상단의 GNB 영역
+		var headerH    = $("#header").outerHeight();
+
+		//글로벌 클래스 네임: window의 높이값을 쓰려는 곳에 공통 클래스명 사용할 수 있도록 클래스명 'winH' 임의 지정
+		$(".winH").height(winH);
+
+		//#wrapper: body 태그의 직속 영역이자 화면의 전체를 감싸는 레이아웃
+		$("#wrapper").height(winH);
+
+		//#main: #wrapper > #header,#main | header를 뺀 영역의 세로 영역
+		$("#main").height(winH-headerH);
+		
+		var mainH      = $("#main").height();
+
+		//#section: #main > #aside,#section | 우측 콘텐츠 영역
+		$("#section").height(mainH);
+
+		//#container: #section > #container | #container의 상하 마진값 30px
+		$("#container").height(mainH-30);
+		var containerH = $("#container").height();
+
+		//#aside: #main > #aside,#section | 좌측 snb,lnb 영역
+		$("#aside").height(mainH);
+		var asideH     = $("#aside").height();
+
+		//#nav: #aside > #nav | nav-list를 감싸는 영역이자 y스크롤 영역
+		$("#nav").height(asideH);
+		
+		//#nav에 지정된 높이값 밖으로 스크롤 생성과 함께 리스트 읽혀지도록 ul의 실 데이터 높이값 대입
+		var navListH   = $("#nav-list").innerHeight();
+		$("#nav-list").height(navListH);
+
+		//panel height 설정을 위한 변수
+		var panelTit   = $(".panel-tit").outerHeight();
+
+		//panel-wrap: 상단 조회 영역 아래,가로 100% 그리드
+		var panelWrap  = $(".panel-wrap").height();
+		$(".panel-wrap").find(".panel-body").height(panelWrap-panelTit);
+
+		//panel-wrap01: 세로100% 그리드(타이틀 포함)
+		$(".panel-wrap01").height(containerH);
+		var panelWrap01 = $(".panel-wrap01").height();
+		$(".panel-wrap01").find(".panel-body").height(panelWrap01-panelTit);
+	});
+
+	$(window).trigger('resize');
+
+	$('.pg-move').each(function(index, item){
+		$(this).addClass("selected");
+		$(this).parent(".submenu").addClass("open");
+	});
+
+	//로그아웃 버튼 클릭 시
+	$('#btnLogout').click(function(){
+		fn_logout();
+	});
+
+	//체크박스 클릭 시
+	$('body').on('click', '.chk-st', function(){
+		if($(this).find('label').length == 0) {
+			if($(this).hasClass('readonly') == false) {
+				if($(this).hasClass('on')) {
+        			$(this).removeClass('on').find('input').removeAttr('checked');
+        		} else {
+        			$(this).addClass('on').find('input').attr('checked', 'checked');
+        		}
+        	}
+    	}
+    }).on('click', '.chk-st label', function(){
+		if($(this).closest('.chk-st').hasClass('readonly') == false) {
+    		if($(this).closest('.chk-st').hasClass('on')) {
+    			$(this).closest('.chk-st').removeClass('on').find('input').removeAttr('checked');
+    		} else {
+    			$(this).closest('.chk-st').addClass('on').find('input').attr('checked', 'checked');
+    		}
+    	}
+    });
+});
+
+/**************************************************************************************************
+ * @funtion    : fn_isNull
+ * @description: 입력받은 값이 존재하는지 확인
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_isNull(checkItem, target, strMessage) {
+	if(checkItem.val() == "") {
+		alert(strMessage);
+
+		checkItem.focus();
+
+		return false;
+	} else {		
+		var checkStr   = checkItem.selector;
+        var checkValue = checkItem.val();
+	}
+
+	return true;
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_logout
+ * @description: 로그아웃 버튼 클릭 시 사용자 로그아웃 처리
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_logout() {
+	var checkYn = false;
+	
+	checkYn     = confirm('로그아웃 하시겠습니까? 로그아웃 시, 로그인 페이지로 이동 합니다. 진행 하시겠습니까?');
+	
+	if(checkYn == true) {	
+		fn_submit("menuForm", "/admin/user/logout.do");
+	}
+}
+
+
+/**************************************************************************************************
+ * @funtion    : fn_onSuccess
+ * @description:
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_onSuccess(data) {
+	if(data.result == "failure") {
+		alert(data.resultMsg);
+	} else {
+		if(this.url == "/admin/user/login.do") {
+			window.location.href = '/admin/menu.do';
+		} else if(this.url == "/admin/insertUser.do" || this.url == "/admin/modifyUser.do"
+               || this.url == "/admin/deleteUser.do" || this.url == "/admin/deleteUsers.do") {
+			alert(data.resultMsg);
+			
+			fn_loadingBarOff();
+			
+			window.location.href = '/admin/userList.do';
+		} else if(this.url == "/admin/insertCenter.do" || this.url == "/admin/modifyCenter.do"
+               || this.url == "/admin/deleteCenter.do" || this.url == "/admin/deleteCenters.do") {
+			alert(data.resultMsg);
+			
+			fn_loadingBarOff();
+			
+			window.location.href = '/admin/centerList.do';
+		} else if(this.url == "/admin/insertBranch.do" || this.url == "/admin/modifyBranch.do"
+               || this.url == "/admin/deleteBranch.do" || this.url == "/admin/deleteBranchs.do") {
+			alert(data.resultMsg);
+			
+			fn_loadingBarOff();
+			
+			window.location.href = '/admin/branchList.do';
+		} else if(this.url == "/admin/insertMachine.do" || this.url == "/admin/modifyMachine.do"
+               || this.url == "/admin/deleteMachine.do" || this.url == "/admin/deleteMachines.do") {
+			alert(data.resultMsg);
+			
+			fn_loadingBarOff();
+			
+			window.location.href = '/admin/machineList.do';
+		}
+	}
+}
+
+function fn_openPopUp(url, params, h, w) {
+	if(x == "") {
+		h = 450;
+		x = 400;
+	}
+
+	var height = screen.height;
+	var width  = screen.width;
+
+	var x      = (width/2)-(w/2);
+	var y      = (height/2)-(h/2);
+
+	var opt    = "left=" + x + ",top=" + y + ",width=" + w + ", height=" + h;
+	    opt    = opt + ",toolbar=no,location=no,directories=no,status=no,menubar=no,addressbar=no,scrollbars=N,resizable=N";
+
+	    url    = url + params;
+	    
+    var win    = window.open(url, "_blank", opt);
+
+	//$('#' + form).attr("action", url);
+    //form.target = "_blank";
+    //$('#' + form).submit();
+
+    if(win == null) {
+    	alert("팝업차단 기능이 실행되고있습니다.\n차단 해제후 다시 실행해 주시기 바랍니다.");
+    	return;
+    } else {
+    	win.focus();		
+    }
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_slideLeft
+ * @description: 좌측 메뉴 통째로 닫거나 펼치기
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_slideLeft() {
+	$(".left-toggle").click(function(){
+		if($(this).hasClass("on")) {
+			//openNav
+			$("#aside").width(200);
+			$("#section").addClass("mgn-l-200");
+			$(".left-toggle").removeClass("left-open");
+			$(this).removeClass("on");
+		} else {
+			//closeNav
+			$("#aside").width(0);
+			$("#section").removeClass("mgn-l-200");
+			$(".left-toggle").addClass("left-open");
+			$(this).addClass("on");
+		}	
+	});
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_submit
+ * @description:
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_submit(formNm, action) {
+	$('#' + formNm).attr("action", action);
+	$('#' + formNm).submit();
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_toggleMenu
+ * @description: 좌측 하위 메뉴 접기 또는 펼치기
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_toggleMenu() { 	
+	//navigation(lnb to snb) toggle
+	$(".lnb").click(function(){
+		$(".lnb").not(this).next(".submenu").hide();
+		$(".lnb").not(this).closest("li").removeClass("active");
+
+		$(this).next(".submenu").slideToggle("fast",function(){
+			$(this).closest(".lnb").toggleClass("active");
+		});
+	});
+}
+
+$(function(){
+	fn_toggleMenu();
+	fn_slideLeft();
+});
+
+/**************************************************************************************************
+ * @funtion    : fn_loadingBarOff
+ * @description: 검색 종료 시, 로딩바 숨김 처리
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+*************************************************************************************************/
+function fn_loadingBarOff() {
+	$("#loader_background").css("visibility","hidden");
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_loadingBarOn
+ * @description: 검색 시작 시, 로딩바 노출 처리
+ * @since      : 2023.01.27
+ * @author     : yhkwon
+ **************************************************************************************************/
+function fn_loadingBarOn() {
+	var obj = document.getElementById("loader_background");
+	    obj.style.width      = '100%';
+	    obj.style.height     = obj.parentElement.clientHeight + 'px';
+	    obj.style.filter     = "alpha(opacity=60)";
+	    obj.style.opacity    = "0.2";
+	    obj.style.visibility = "visible";
+}
+
+/**************************************************************************************************
+ * @funtion    : fn_comma
+ * @description: 숫자 세 자리마다 콤마(,) 처리
+ * @param      : str
+ * @since      : 2022.10.07
+ **************************************************************************************************/
+ function fn_comma(str) {
+     str = String(str);
+
+     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+ }
+ 
+ /**************************************************************************************************
+  * @funtion    : fn_loadingBarOff
+  * @description: 검색 종료 시, 로딩바 숨김 처리
+  * @since      : 2023.01.27
+  * @author     : yhkwon
+ *************************************************************************************************/
+ function fn_loadingBarOff() {
+ 	$("#loader_background").css("visibility","hidden");
+ }
+
+ /**************************************************************************************************
+  * @funtion    : fn_loadingBarOn
+  * @description: 검색 시작 시, 로딩바 노출 처리
+  * @since      : 2023.01.27
+  * @author     : yhkwon
+  **************************************************************************************************/
+ function fn_loadingBarOn() {
+ 	var obj = document.getElementById("loader_background");
+ 	    obj.style.width      = '100%';
+ 	    obj.style.height     = obj.parentElement.clientHeight + 'px';
+ 	    obj.style.filter     = "alpha(opacity=60)";
+ 	    obj.style.opacity    = "0.2";
+ 	    obj.style.visibility = "visible";
+ }

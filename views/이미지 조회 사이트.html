@@ -1,0 +1,151 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>이미지 조회 사이트</title>
+		<link rel="shortcut icon" type="image/x-icon" href="http://photoplus.kr/resources/images/common/icon_favicon.png">
+	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/jquery-ui.css">
+		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery-1.11.2.min.js.다운로드"></script>
+		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery-ui.js.다운로드"></script>
+		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery-accordion-menu.js.다운로드"></script>
+		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery.blockUI.js.다운로드"></script>
+		<script type="text/javascript" src="./이미지 조회 사이트_files/common.js.다운로드" charset="UTF-8"></script>
+		
+
+
+	
+	
+	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/common.css">
+	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/page.css">
+	
+
+
+	</head>
+	<body>
+	
+
+	
+	
+		<div id="main" style="height: 932px;">
+			<section id="section" style="height: 932px;">
+				<div id="container" class="" style="height: 902px;">
+					<div class="cont-inner">					
+						<div class="fl-box panel-wrap01" style="width: 100%; height: 902px;">
+							<div class="panel-body" style="height: 902px;">
+								<div style="padding-bottom:1%; text-align:center;">
+								<!--
+									<img src="/resources/images/common/icon_logo.png" alt="logo"/>
+									-->
+									<img src="http://photoplus.kr/main/index.do" alt="">
+								</div>
+								
+						<!---------------------------------------------------------------------------------------------------------------------------------------------
+ * 인덱스 수정중..
+ ---------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var searchFlag = 'N';
+
+		if(searchFlag == "Y") {
+			var resultMsg = '';
+			
+			alert(resultMsg);
+			
+			location.href= "#";
+		}
+	});
+	
+	$(function(){
+		//검색
+		$('#searchBtn').on('click', function(){
+			var phoneNo = $("#PHONE_NO").val();
+			
+			if(phoneNo != "") {
+				fn_submit("searchForm" ,"/main/search.do");
+			} else {
+				alert("번호를 입력 후, 검색 버튼을 클릭 해주세요.\nAfter entering the number, click the Search button.");
+				return;
+			}
+		});
+	});
+	
+	function fn_enterkey() {
+		if(window.event.keyCode == 13) {			
+			fn_search();
+		}
+	}
+</script>
+<style>
+  .korean-text {
+    font-size: 15px; /* 크게 표시할 폰트 크기 */
+  }
+
+  @media screen and (max-width: 500px) {
+    /* 모바일 화면 크기에 대한 스타일 조정 */
+    .tb-wrap, .tb-st, .inp-wrap {
+      width: 100%;
+    }
+    .searchtable {
+      width: 100%;
+    }
+  }
+</style>
+
+<form name="searchForm" id="searchForm" method="post" style="
+">
+	<div class="tb-wrap" style="border-top:none;margin-top:10px;">
+		<table class="tb-st" style="border-bottom:none;">
+			<colgroup>
+				<col width="48.7%"> <!-- 전체 좌측 여백 -->
+				<col width="10%"> <!-- 검색창 왼쪽 크기 -->
+				<col width="*%"> <!-- 검색창 크기 -->
+				<col width="30%"> <!-- 안내문구 -->
+			</colgroup>
+			<tbody>
+				<tr>
+					<td style="border-bottom:none;">
+					</td>
+					<th scope="row" style="border-bottom:1px solid #e8defc;background-color: #F5B2BC;padding: 10px -10px;font-size: 14.5px;color: #FFFFFF;border-radius: 10px;">
+						<strong>Number</strong>
+					</th>
+					<td style="border-bottom:1px solid #e8defc;">
+						<div class="inp-wrap" style="width:100%">						
+							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeydown="fn_enterkey()" placeholder="숫자만 입력.Enter numbers only">
+						</div>
+					</td>
+					<td style="border-bottom:none;">
+					</td>					
+				</tr>
+				<tr>
+					<td style="border-bottom:none;">
+					</td>
+					<th scope="row" colspan="2" style="background:#ffffff; border-bottom:1px solid #d8d8d8; text-align:center; font-weight: bold;font-size: 12px;">
+						입력하신 번호를 입력해 주세요.<br>Please enter the number you entered.
+						<br>
+						<br>사진은 2일 후 삭제됩니다.<br>Photos are deleted after 2 days.PC
+					</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div style="margin-top: 15px; text-align: center;">
+	    <a href="page2.html" class="btn comm st02" id="searchBtn" style="background-color: #F5B2BC; color: #FFFFFF; border-radius: 10px; padding: 5px 10px; font-size: 15px; font-weight: bold; display: inline-block; line-height: 1;">Search</a>
+	</div>
+</form>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	
+
+	
+	
+</body></html>

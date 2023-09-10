@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.i-txt {position:absolute; right:10px; top:10px;}
+.i-txt span {font-weight:bold;}
+
+.sect-login {-moz-box-shadow: 1px 4px 6px 0px rgba(0,0,0,0.36); -webkit-box-shadow: 1px 4px 6px 0px rgba(0,0,0,0.36); background:#fff; border:1px solid #717276; box-shadow: 1px 4px 6px 0px rgba(0,0,0,0.36); box-sizing:border-box; left:50%; margin-left:-240px; margin-top:-230px; position:absolute; top:50%; width:480px;}
+
+.sect-login .art-login {float:left; font-size:14px; margin:35px 55px 35px; width:370px;}
+.sect-login .art-login input {color:#333; font-size:16px; height:35px; line-height:1em;}
+.sect-login .art-login .list-login01 {height:45px; line-height:40px; margin-top:7px;}
+.sect-login .art-login .list-login02 {margin:10px 0 0 115px;}
+.sect-login .art-login .inp-wrap {border:1px solid #8a8a8a; box-sizing:border-box; height:45px; padding:4px 8px 4px 45px; width:100%;}
+.sect-login .art-login .inp-wrap.id {background:url('/resources/images/login/login_input_icon_01.png') no-repeat 10px center;}
+.sect-login .art-login .inp-wrap.pwd {background:url('/resources/images/login/login_input_icon_02.png') no-repeat 10px center;}
+.sect-login .btn.login {background:#32465d; border-radius:3px; color:#fff; font-size:14px; height:50px; line-height:50px; margin-bottom:50px; margin-left:55px; width:370px;}
+
+.copy {bottom:20px; left:50%; font-weight:bold; margin-left:-85px;position:absolute;}
