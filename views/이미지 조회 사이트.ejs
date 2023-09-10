@@ -2,6 +2,8 @@
 		
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>이미지 조회 사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 		<link rel="shortcut icon" type="image/x-icon" href="http://photoplus.kr/resources/images/common/icon_favicon.png">
 	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/jquery-ui.css">
 		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery-1.11.2.min.js.다운로드"></script>
@@ -16,7 +18,14 @@
 	
 	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/common.css">
 	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/page.css">
-	
+	<style>
+.centered-element {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
 
 
 	</head>
@@ -94,12 +103,12 @@
   }
 </style>
 
-<form name="searchForm" id="searchForm" method="post" style="
+<form class="centered-element" name="searchForm" id="searchForm" method="post" style="
 ">
 	<div class="tb-wrap" style="border-top:none;margin-top:10px;">
 		<table class="tb-st" style="border-bottom:none;">
 			<colgroup>
-				<col width="48.7%"> <!-- 전체 좌측 여백 -->
+				<col width="30.7%"> <!-- 전체 좌측 여백 -->
 				<col width="10%"> <!-- 검색창 왼쪽 크기 -->
 				<col width="*%"> <!-- 검색창 크기 -->
 				<col width="30%"> <!-- 안내문구 -->
@@ -108,10 +117,10 @@
 				<tr>
 					<td style="border-bottom:none;">
 					</td>
-					<th scope="row" style="border-bottom:1px solid #e8defc;background-color: #F5B2BC;padding: 10px -10px;font-size: 14.5px;color: #FFFFFF;border-radius: 10px;">
+					<th scope="row" style="border-bottom:1px solid #e8defc;background-color: #F5B2BC;padding: 10px -10px;font-size: 12.5px;color: #FFFFFF;/* border-radius: 0; */">
 						<strong>Number</strong>
 					</th>
-					<td style="border-bottom:1px solid #e8defc;">
+					<td style="/* border-bottom:1px solid #e8defc; */">
 						<div class="inp-wrap" style="width:100%">						
 							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeydown="fn_enterkey()" placeholder="숫자만 입력.Enter numbers only">
 						</div>
