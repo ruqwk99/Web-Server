@@ -28,7 +28,7 @@ app.use(express.urlencoded({
 //라우터       //요청객체, 응답객체
 app.get('/', function(req, res){ 
 
-    res.render('이미지 조회 사이트.html', {}, function(err ,html){
+    res.render('이미지 조회 사이트.ejs', {}, function(err ,html){
     // data라는 이름으로 전달         lkye
     // ejs 파일에서는 data[1].a 와 같은 형식으로 사용
         if (err)
