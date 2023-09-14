@@ -71,7 +71,7 @@ app.post('/api/data', (req, res) => {
   res.status(200).send("요청이 성공적으로 처리되었습니다.");
 });
 
-app.get('/receive-message', function(req, res){ 
+app.get('/React', function(req, res){  // /receive-message
 
     res.render('onecut.ejs', {}, function(err ,html){
     // data라는 이름으로 전달         lkye
