@@ -3,18 +3,11 @@ const express = require('express');
 const mysql = require('mysql');
 const app = express();
 const fs = require('fs');
-
-const newData = {
-    name: 'Jane',
-    age: 25,
-    city: 'Los Angeles'
-};
+const path = require('path'); // path 모듈 추가
 
 //.ejs 뷰엔진을 실행하기 위한 코드
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
-//TEST
 
 //public 미들웨어
 app.use(express.static('views')); 
@@ -27,10 +20,14 @@ app.use(express.urlencoded({
 
 //라우터       //요청객체, 응답객체
 app.get('/', function(req, res){ 
+<<<<<<< Updated upstream
 
     res.render('이미지 조회 사이트.ejs', {}, function(err ,html){
     // data라는 이름으로 전달         lkye
     // ejs 파일에서는 data[1].a 와 같은 형식으로 사용
+=======
+    res.render('이미지 조회 사이트.ejs', {}, function(err ,html){
+>>>>>>> Stashed changes
         if (err)
         console.log(err);
         
@@ -40,6 +37,14 @@ app.get('/', function(req, res){
     })
 });
 
+app.get('/React', function(req, res){  // /receive-message
+    app.use(express.static(path.join(__dirname, 'build'))); //React
+
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    console.log("React_App 구동");
+});
+
+/*
 app.post('/api/data', (req, res) => {
   //const data = { message: 'Hello from Node.js server!' };
   //res.json(data);
@@ -69,6 +74,7 @@ app.post('/api/data', (req, res) => {
     }
 });
   res.status(200).send("요청이 성공적으로 처리되었습니다.");
+<<<<<<< Updated upstream
 });
 
 app.get('/React', function(req, res){  // /receive-message
@@ -84,7 +90,10 @@ app.get('/React', function(req, res){  // /receive-message
         res.send(html); // 응답 종료
     })
 });
+=======
+});*/
+>>>>>>> Stashed changes
 
 app.listen(3333, function() {
     console.log('App DB-Server on port -3333-');
-  });
+});
