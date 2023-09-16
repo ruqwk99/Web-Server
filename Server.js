@@ -33,7 +33,6 @@ app.get('/', function(req, res){
 app.get('/page2', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'page2.html'));
     console.log("React_App222 구동");
-    }
 });
 
 app.get('/React', function(req, res){  // /receive-message
