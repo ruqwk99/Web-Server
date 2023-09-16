@@ -31,14 +31,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/page2', function(req, res){ 
-    res.render('page2.ejs', {}, function(err ,html){
-        if (err)
-        console.log(err);
-        
-        console.log("HTML-2구동");
-
-        res.send(html); // 응답 종료
-    })
+    res.render('page2.ejs', {}, ()=>{}){
+    console.log("HTML-2구동");
 });
 
 
