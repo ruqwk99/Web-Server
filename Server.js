@@ -20,7 +20,7 @@ app.use(express.urlencoded({
 
 //라우터       //요청객체, 응답객체
 app.get('/', function(req, res){ 
-    res.render('이미지 조회 사이트.ejs', {}, function(err ,html){
+    res.render('이미지 조회 사이트', {}, function(err ,html){
         if (err)
         console.log(err);
         
@@ -29,9 +29,9 @@ app.get('/', function(req, res){
         res.send(html); // 응답 종료
     })
 });
-/*
+
 app.get('/page2', (req, res) => {
-    res.render('page2.ejs', {}, function(err ,html){
+    res.render('page2', {}, function(err ,html){
         if (err)
         console.log(err);
         
@@ -39,7 +39,7 @@ app.get('/page2', (req, res) => {
 
         res.send(html); // 응답 종료
     })
-});*/
+});
 
 app.get('/React', function(req, res){  // /receive-message
     app.use(express.static(path.join(__dirname, 'build'))); //React
