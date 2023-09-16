@@ -29,7 +29,7 @@ app.get('/', function(req, res){
         res.send(html); // 응답 종료
     })
 });
-
+/*
 app.get('/page2', (req, res) => {
     res.render('page2.ejs', {}, function(err ,html){
         if (err)
@@ -39,7 +39,7 @@ app.get('/page2', (req, res) => {
 
         res.send(html); // 응답 종료
     })
-});
+});*/
 
 app.get('/React', function(req, res){  // /receive-message
     app.use(express.static(path.join(__dirname, 'build'))); //React
