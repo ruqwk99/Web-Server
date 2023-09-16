@@ -31,8 +31,17 @@ app.get('/', function(req, res){
 });
 
 app.get('/page2', function(req, res){ 
-    res.render('page2.ejs', {}, ()=>{});
-    console.log("HTML-2구동");
+    // page2.html 파일을 읽어서 클라이언트로 전송합니다.
+    fs.readFile('page2.html', 'utf8', (err, data) => {
+        if (err) {
+            console.error('파일 읽기 오류:', err);
+            res.status(500).send('서버 오류');
+            return;
+        }
+        
+        res.send(data);
+        console.log("HTML-2 구동");
+    });
 });
 
 
