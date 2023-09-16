@@ -31,15 +31,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/page2', (req, res) => {
-    const filePath = __dirname + '/views/page2.html';
-    // fs 모듈을 사용하여 파일 동기적으로 읽기
-    try {
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        res.send(fileContent);
-    } 
-     catch (error) {
-        console.error('파일 읽기 오류:', error);
-        res.status(500).send('서버 오류');
+    res.sendFile(path.join(__dirname, 'views', 'page2.html'));
+    console.log("React_App222 구동");
     }
 });
 
