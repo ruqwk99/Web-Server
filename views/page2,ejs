@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Image</title>
+    <style>
+        /* HTML과 Body 요소에 높이를 100%로 설정하여 전체 화면을 채우도록 합니다. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* 스크롤 막기 */
+        }
+
+        /* 이미지를 화면에 꽉 채우도록 스타일링합니다. */
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 화면 비율 유지 및 크롭 */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        div{
+            position: relative;
+            width: 360px;
+            height: 740px;
+            margin-top: 20%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 이미지 경로를 src 속성에 지정하세요. -->
+    <div>
+    <img src="play_1.png" alt="Full-Screen Image">
+    </div>
+</body>
+</html>
