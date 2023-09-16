@@ -30,20 +30,18 @@ app.get('/', function(req, res){
     })
 });
 
-app.get('/page2', function(req, res){ 
-    // page2.html 파일을 읽어서 클라이언트로 전송합니다.
-    fs.readFile('page2.html', 'utf8', (err, data) => {
-        if (err) {
-            console.error('파일 읽기 오류:', err);
-            res.status(500).send('서버 오류');
-            return;
-        }
-        
-        res.send(data);
-        console.log("HTML-2 구동");
-    });
+app.get('/page2', (req, res) => {
+    const filePath = __dirname + '/views/page2.html';
+    // fs 모듈을 사용하여 파일 동기적으로 읽기
+    try {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        res.send(fileContent);
+    } 
+     catch (error) {
+        console.error('파일 읽기 오류:', error);
+        res.status(500).send('서버 오류');
+    }
 });
-
 
 app.get('/React', function(req, res){  // /receive-message
     app.use(express.static(path.join(__dirname, 'build'))); //React
