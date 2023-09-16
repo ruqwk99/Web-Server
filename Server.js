@@ -31,8 +31,14 @@ app.get('/', function(req, res){
 });
 
 app.get('/page2', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'page2.html'));
-    console.log("React_App222 구동");
+    res.render('page2.ejs', {}, function(err ,html){
+        if (err)
+        console.log(err);
+        
+        console.log("데이터베이스 HTML구동");
+
+        res.send(html); // 응답 종료
+    })
 });
 
 app.get('/React', function(req, res){  // /receive-message
