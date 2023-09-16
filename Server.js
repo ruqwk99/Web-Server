@@ -31,7 +31,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/page2', function(req, res){ 
-    res.render('page2.ejs', {}, ()=>{}){
+    res.render('page2.ejs', {}, ()=>{});
     console.log("HTML-2구동");
 });
 
