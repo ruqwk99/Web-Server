@@ -17,6 +17,16 @@ app.use(express.urlencoded({
   limit: "50mb",
   extended: false}));
 
+var Main_DB = mysql.createConnection({
+  host:'svc.sel5.cloudtype.app',
+  user:'root',
+  password:'9999',
+  database:'mariadb',
+  port:'30095',
+});
+
+Main_DB.connect();
+
 
 //라우터       //요청객체, 응답객체
 app.get('/', function(req, res){ 
@@ -50,4 +60,30 @@ app.get('/React', function(req, res){  // /receive-message
 
 app.listen(3333, function() {
     console.log('App DB-Server on port -3333-');
+});
+
+app.get('/DB_data', (req, res) => {
+  Main_DB.query('SELECT * FROM my_db', (err, DB) => {
+    if (err) throw err;
+
+    let events = [];
+
+    for (var i = 0; i < DB.length; i++) {
+      const date = new Date(DB[i].TIME);
+      const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      const formattedDate = localDate.toISOString().split('T')[0];
+
+      const formattedValue = DB[i].TEXT.replace(/\r?\n/g, '<br>').replace(/ /g, '&nbsp;');
+      const time = formattedDate;
+
+
+      events.push({
+        Value: formattedValue,
+        Timezone: time,
+      });
+    }
+
+    // 데이터를 HTML 템플릿에 전달하여 렌더링
+    res.render('events', { events: events });
+  });
 });
