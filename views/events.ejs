@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DB 데이터 표시</title>
+</head>
+<body>
+  <h1>DB 데이터 목록</h1>
+  <ul>
+    <% for (var i = 0; i < events.length; i++) { %>
+      <li>
+        <strong><%= events[i].Timezone %></strong><br>
+        <%- events[i].Value %>
+      </li>
+    <% } %>
+  </ul>
+</body>
+</html>
