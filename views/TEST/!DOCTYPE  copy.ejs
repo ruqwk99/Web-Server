@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .quiz-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  @media (min-width: 1080px) and (min-height: 1920px) {
+  /* 키오스크 스타일 설정 */
+    body{
+      margin-top: 40%;
+    }
+  }
+  
+</style>
+<title>OX Quiz</title>
+</head>
+<body>
+  <div class="quiz-container">
+
+    <h2>문제1</h2>
+    <input type="file" id="imageInput1-1" accept="image/*" onchange="TEST1_1()">
+    <span id="fileNameDisplay1-1"></span>
+
+    <h2>해설1</h2>
+    <input type="file" id="imageInput1-2" accept="image/*" onchange="TEST1_2()">
+    <span id="fileNameDisplay1-2"></span>
+
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <select id="myDropdown" style="font-size: 30px; margin-top: 10px; margin-left: 46%;">
+      <option value=true>O</option>
+      <option value=false>X</option>
+    </select>
+
+
+    <h2>문제2</h2>
+    <input type="file" id="imageInput2-1" accept="image/*" onchange="TEST2_1()">
+    <span id="fileNameDisplay2-1"></span>
+
+    <h2>해설2</h2>
+    <input type="file" id="imageInput2-2" accept="image/*" onchange="TEST2_2()">
+    <span id="fileNameDisplay2-2"></span>
+
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <select id="myDropdown2" style="font-size: 30px; margin-top: 10px; margin-left: 46%;">
+      <option value=true>O</option>
+      <option value=false>X</option>
+    </select>
+
+    <h2>문제3</h2>
+    <input type="file" id="imageInput3-1" accept="image/*" onchange="TEST3_1()">
+    <span id="fileNameDisplay3-1"></span>
+
+    <h2>해설3</h2>
+    <input type="file" id="imageInput3-2" accept="image/*" onchange="TEST3_2()">
+    <span id="fileNameDisplay3-2"></span>
+
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <select id="myDropdown3" style="font-size: 30px; margin-top: 10px; margin-left: 46%;">
+      <option value=true>O</option>
+      <option value=false>X</option>
+    </select>
+
+   <!-- <button onclick="location.href='OX Main.html'">퀴즈시작!</button> -->
+   <br><button id="submit" style="margin-top: 45px; margin-left: 44.5%;">퀴즈시작</button>
+  </div>
+
+  <script>
+
+    function TEST1_1(){
+    const imageInput = document.getElementById('imageInput1-1');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_문제1','./image/'+file.name);
+    document.getElementById('fileNameDisplay1-1').textContent=localStorage.getItem('이미지_문제1');
+    }
+
+    function TEST1_2(){
+    const imageInput = document.getElementById('imageInput1-2');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_해설1','./image/'+file.name);
+    document.getElementById('fileNameDisplay1-2').textContent=localStorage.getItem('이미지_해설1');
+    }
+
+    function TEST2_1(){
+    const imageInput = document.getElementById('imageInput2-1');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_문제2','./image/'+file.name);
+    document.getElementById('fileNameDisplay2-1').textContent=localStorage.getItem('이미지_문제2');
+    }
+
+    function TEST2_2(){
+    const imageInput = document.getElementById('imageInput2-2');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_해설2','./image/'+file.name);
+    document.getElementById('fileNameDisplay2-2').textContent=localStorage.getItem('이미지_해설2');
+    }
+
+    function TEST3_1(){
+    const imageInput = document.getElementById('imageInput3-1');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_문제3','./image/'+file.name);
+    document.getElementById('fileNameDisplay3-1').textContent=localStorage.getItem('이미지_문제3');
+    }
+
+    function TEST3_2(){
+    const imageInput = document.getElementById('imageInput3-2');
+    const file = imageInput.files[0]; console.log('./image/'+file.name)
+    localStorage.setItem('이미지_해설3','./image/'+file.name);
+    document.getElementById('fileNameDisplay3-2').textContent=localStorage.getItem('이미지_해설3');
+    }
+
+    document.getElementById('fileNameDisplay1-1').textContent=localStorage.getItem('이미지_문제1')||'이미지 없음 X';
+    document.getElementById('fileNameDisplay1-2').textContent=localStorage.getItem('이미지_해설1')||'이미지 없음 X';
+    localStorage.getItem('밸류값1') || localStorage.setItem('밸류값1', document.getElementById("myDropdown").value);
+    document.getElementById("myDropdown").value = localStorage.getItem('밸류값1');
+
+    document.getElementById('fileNameDisplay2-1').textContent=localStorage.getItem('이미지_문제2')||'이미지 없음 X';
+    document.getElementById('fileNameDisplay2-2').textContent=localStorage.getItem('이미지_해설2')||'이미지 없음 X';
+    localStorage.getItem('밸류값2') || localStorage.setItem('밸류값2', document.getElementById("myDropdown").value);
+    document.getElementById("myDropdown2").value = localStorage.getItem('밸류값2');
+
+    document.getElementById('fileNameDisplay3-1').textContent=localStorage.getItem('이미지_문제3')||'이미지 없음 X';
+    document.getElementById('fileNameDisplay3-2').textContent=localStorage.getItem('이미지_해설3')||'이미지 없음 X';
+    localStorage.getItem('밸류값3') || localStorage.setItem('밸류값3', document.getElementById("myDropdown").value);
+    document.getElementById("myDropdown3").value = localStorage.getItem('밸류값3');
+  
+ 
+  
+    document.getElementById("submit").addEventListener("click", function() {
+      localStorage.setItem('밸류값1', document.getElementById("myDropdown").value);
+  
+      localStorage.setItem('밸류값2', document.getElementById("myDropdown2").value);
+  
+      localStorage.setItem('밸류값3', document.getElementById("myDropdown3").value);
+  
+      setTimeout(()=>{location.href="/OX_Main"},100);
+    });
+  </script>
+</body>
+</html>
