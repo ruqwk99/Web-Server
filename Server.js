@@ -28,24 +28,12 @@ var Main_DB = mysql.createConnection({
 Main_DB.connect();
 
 
-//라우터       //요청객체, 응답객체
-app.get('/', function(req, res){ 
-    res.render('카톡', {}, function(err ,html){
+app.get('/', function(req, res){  
+    res.render('이미지 조회 사이트', {}, function(err ,html){
         if (err)
         console.log(err);
         
-        console.log("데이터베이스 HTML구동");
-
-        res.send(html); // 응답 종료
-    })
-});
-
-app.get('/page2', (req, res) => {
-    res.render('page2', {}, function(err ,html){
-        if (err)
-        console.log(err);
-        
-        console.log("데이터베이스 HTML구동");
+        console.log("MAIN EJS구동");
 
         res.send(html); // 응답 종료
     })
@@ -57,6 +45,38 @@ app.get('/React', function(req, res){  // /receive-message
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
     console.log("React_App 구동");
 });
+
+app.get('/Next', function(req, res){ 
+  Main_DB.query(`SELECT * FROM test_db`, function(err,test){
+    res.render('TEST/events_test', {'DB':test}, function(err ,html){
+    // data라는 이름으로 전달         lkye
+    // ejs 파일에서는 data[1].a 와 같은 형식으로 사용
+        if (err)
+        console.log(err);
+        
+        console.log("DB Main구동");
+
+        res.send(html); // 뿌려주고 응답종료
+    })
+});
+}); 
+
+app.post('/submit_Num', (req, res) => {
+    const { value1 } = req.body; // 클라이언트에서 POST 요청으로 보낸 데이터 추출
+    console.log("폰번호호스팅 VALUE of DB UPDATA");
+
+    Main_DB.query(`INSERT INTO test_db2 (Num) VALUES (?)`, [value1], (err, result) => {
+        if (err) {
+            console.error("데이터베이스 쿼리 오류:", err);
+            res.status(500).send("서버 오류");
+        } 
+        else {
+            console.log("데이터베이스에 데이터 추가 완료");
+            res.status(200).send("Success");
+        }
+    });
+});
+
 
 app.listen(3333, function() {
     console.log('App DB-Server on port -3333-');
