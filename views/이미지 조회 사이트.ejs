@@ -71,7 +71,7 @@
 		//검색
 		$('#searchBtn').on('click', function(){
 			var phoneNo = $("#PHONE_NO").val();
-			
+			console.log(phoneNo);
 			if(phoneNo != "") {
 				fn_submit("searchForm" ,"/main/search.do");
 			} else {
@@ -122,7 +122,7 @@
 					</th>
 					<td style="/* border-bottom:1px solid #e8defc; */">
 						<div class="inp-wrap" style="width:100%">						
-							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeydown="fn_enterkey()" placeholder="숫자만 입력.Enter numbers only">
+							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="checkInputValue()" onkeydown="fn_enterkey()" placeholder="숫자만 입력.Enter numbers only">
 						</div>
 					</td>
 					<td style="border-bottom:none;">
@@ -142,7 +142,7 @@
 	</div>
 	
 	<div style="margin-top: 15px; text-align: center;">
-	    <a href="/page2" class="btn comm st02" id="searchBtn" style="background-color: #F5B2BC; color: #FFFFFF; border-radius: 10px; padding: 5px 10px; font-size: 15px; font-weight: bold; display: inline-block; line-height: 1;">Search</a>
+	    <a href="/Next" class="btn comm st02" id="searchBtn" style="background-color: #F5B2BC; color: #FFFFFF; border-radius: 10px; padding: 5px 10px; font-size: 15px; font-weight: bold; display: inline-block; line-height: 1; onclick()">Search</a>
 	</div>
 </form>
 
@@ -155,11 +155,53 @@
 		</div>	
 </body>
 <script>
+  var inputValue;
   document.addEventListener("keydown", function(e) {
   if (e.key === "F9") {
     alert("개발페이지로 이동합니다.")
     window.location.href = '/React';
   }
 });
+  document.getElementById('searchBtn').addEventListener('click',()=>{
+  localStorage.setItem('test',inputValue);
+  SendRequest();
+   });
+
+function SendRequest() {
+    fetch('/submit_Num', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        value1 : localStorage.getItem('test'),
+      })
+    })
+      .then(response => {
+        if (response.ok) {
+          //alert('response ok!')
+          console.log('요청 성공');
+        } else {
+          console.log('요청 실패');
+        }
+      })
+      .catch(error => {
+        console.log('요청 실패');
+      });
+  }
 </script>
+
+    <script>
+        function checkInputValue() {
+            // Get the input element by its ID
+            var inputElement = document.getElementById("PHONE_NO");
+
+            // Get the value of the input element
+            inputValue = inputElement.value;
+          
+            console.log(inputValue);
+        }
+    </script>
+
+
 </html>
