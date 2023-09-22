@@ -30,7 +30,7 @@ Main_DB.connect();
 
 //라우터       //요청객체, 응답객체
 app.get('/', function(req, res){ 
-    res.render('이미지 조회 사이트', {}, function(err ,html){
+    res.render('카톡', {}, function(err ,html){
         if (err)
         console.log(err);
         
