@@ -1804,14 +1804,21 @@
       border-color: #240b36;
     }
   }
-  
+  .정답 {
+  color: blue; /* 파란색 */
+}
+
+/* 오답 스타일 */
+.오답 {
+  color: red; /* 빨간색 */
+}
   </style>
   </head>
 
   <body>
       <div class="container" id="container7">
           <ul>
-              <li><%= DB[DB.length-1]['1_DATA'] %></li><br>
+              <li class="<%= DB[DB.length-1]['1_DATA'] %>"><%= DB[DB.length-1]['1_DATA'] %></li><br>
                <li><%= DB[DB.length-1]['2_DATA'] %></li><br>
                 <li><%= DB[DB.length-1]['3_DATA'] %></li>
           </ul>
