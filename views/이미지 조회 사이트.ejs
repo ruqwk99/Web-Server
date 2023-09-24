@@ -203,5 +203,17 @@ function SendRequest() {
         }
     </script>
 
+<script>
+document.addEventListener('input', function(event) {
+  const inputElement = event.target;
+  const inputValue = inputElement.value;
+
+  if (!/^[0-9]+$/.test(inputValue)) {
+    // 숫자가 외 값이 입력되었을 때 리페어
+    inputElement.value = inputValue.replace(/[^0-9]/g, '');
+  }
+});
+</script>
+
 
 </html>
