@@ -4,6 +4,8 @@
 		<title>이미지 조회 사이트</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 		<link rel="shortcut icon" type="image/x-icon" href="http://photoplus.kr/resources/images/common/icon_favicon.png">
 	    <link type="text/css" rel="stylesheet" href="./이미지 조회 사이트_files/jquery-ui.css">
 		<script type="text/javascript" src="./이미지 조회 사이트_files/jquery-1.11.2.min.js.다운로드"></script>
@@ -67,20 +69,6 @@
 		}
 	});
 	
-	$(function(){
-		//검색
-		$('#searchBtn').on('click', function(){
-			var phoneNo = $("#PHONE_NO").val();
-			console.log(phoneNo);
-			if(phoneNo != "") {
-				fn_submit("searchForm" ,"/main/search.do");
-			} else {
-				alert("번호를 입력 후, 검색 버튼을 클릭 해주세요.\nAfter entering the number, click the Search button.");
-				return;
-			}
-		});
-	});
-	
 	function fn_enterkey() {
 		if(window.event.keyCode == 13) {			
 			fn_search();
@@ -88,6 +76,12 @@
 	}
 </script>
 <style>
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
   .korean-text {
     font-size: 15px; /* 크게 표시할 폰트 크기 */
   }
@@ -103,7 +97,7 @@
   }
 </style>
 
-<form class="centered-element" name="searchForm" id="searchForm" method="post" style="
+<div class="centered-element" name="searchForm" id="searchForm" style="
 ">
 	<div class="tb-wrap" style="border-top:none;margin-top:10px;">
 		<table class="tb-st" style="border-bottom:none;">
@@ -122,7 +116,7 @@
 					</th>
 					<td style="/* border-bottom:1px solid #e8defc; */">
 						<div class="inp-wrap" style="width:100%">						
-							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="checkInputValue()" onkeydown="fn_enterkey()" placeholder="숫자만 입력.Enter numbers only">
+							<input type="text" class="inp-comm" id="PHONE_NO" name="PHONE_NO" value="" maxlength="11" oninput="checkInputValue()"  placeholder="숫자만 입력.Enter numbers only">
 						</div>
 					</td>
 					<td style="border-bottom:none;">
@@ -140,11 +134,14 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div style="margin-top: 15px; text-align: center;">
-	    <a href="/Next" class="btn comm st02" id="searchBtn" style="background-color: #F5B2BC; color: #FFFFFF; border-radius: 10px; padding: 5px 10px; font-size: 15px; font-weight: bold; display: inline-block; line-height: 1; onclick()">Search</a>
+	    <a class="btn comm st02" id="searchBtn" style="background-color: #F5B2BC; color: #FFFFFF; border-radius: 10px; padding: 5px 10px; font-size: 15px; font-weight: bold; display: inline-block; line-height: 1;">Search</a>
 	</div>
-</form>
+
+</div>
+
+
 
 
 							</div>
@@ -162,10 +159,18 @@
     window.location.href = '/React';
   }
 });
-  document.getElementById('searchBtn').addEventListener('click',()=>{
+document.getElementById('searchBtn').addEventListener('click',()=>{
   localStorage.setItem('test',inputValue);
+  var phoneNo = $("#PHONE_NO").val();
+if(!phoneNo){
+alert("번호를 입력 후, 검색 버튼을 클릭 해주세요.\nAfter entering the number, click the Search button.");
+return;
+}
+else{
   SendRequest();
-   });
+  window.location.href = "/Next";
+}
+});
 
 function SendRequest() {
     fetch('/submit_Num', { 
@@ -190,20 +195,13 @@ function SendRequest() {
       });
   }
 </script>
-
-    <script>
-        function checkInputValue() {
+ <script>
+function checkInputValue() {
             // Get the input element by its ID
             var inputElement = document.getElementById("PHONE_NO");
 
             // Get the value of the input element
-            inputValue = inputElement.value;
-          
-            console.log(inputValue);
-        }
-    </script>
-
-<script>
+            inputValue = inputElement.value;}
 document.addEventListener('input', function(event) {
   const inputElement = event.target;
   const inputValue = inputElement.value;
