@@ -1,4 +1,6 @@
 const net = require('net');
+const express = require('express');
+const app = express();
 
 // TCP 서버 생성
 const server = net.createServer((socket) => {
@@ -36,4 +38,8 @@ const server = net.createServer((socket) => {
 const PORT = 33333;
 server.listen(PORT, () => {
   console.log(`서버가 ${PORT} 포트에서 대기 중...`);
+});
+
+app.listen(3333, function() {
+    console.log('Main port Start 3333!');
 });
