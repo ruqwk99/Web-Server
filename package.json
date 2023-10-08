@@ -104,7 +104,8 @@
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",
     "xtend": "^4.0.1",
-     "net": "^1.0.2"
+     "net": "^1.0.2",
+    "http": "^0.0.1-security"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
