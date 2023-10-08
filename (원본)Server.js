@@ -25,8 +25,6 @@ var Main_DB = mysql.createConnection({
   port:'30095',
 });
 
-Main_DB.connect();
-
 
 app.get('/', function(req, res){  
     res.render('이미지 조회 사이트', {}, function(err ,html){
