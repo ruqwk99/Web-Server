@@ -1,41 +1,20 @@
 const net = require('net');
+const http = require('http');
 const express = require('express');
 const app = express();
 
-// TCP 서버 생성
-const server = net.createServer((socket) => {
-  // 클라이언트가 연결될 때 실행됩니다.
-  console.log('클라이언트가 연결되었습니다.');
+const http = require('http');
 
-  // 클라이언트로부터 데이터를 받을 때 실행됩니다.
-  socket.on('data', (data) => {
-    console.log('클라이언트로부터 받은 데이터:', data.toString());
-  });
-
-  // 클라이언트 접속이 끊어질 때 실행됩니다.
-  socket.on('end', () => {
-    console.log('클라이언트 접속이 끊어졌습니다.');
-  });
-
-  // 클라이언트와의 연결이 종료될 때 실행됩니다.
-  socket.on('close', () => {
-    console.log('클라이언트와의 연결이 종료되었습니다.');
-  });
-
-  // err 예외처리
-  socket.on('error', (err) => {
-    if (err.code === 'ECONNRESET') {
-     console.log('클라이언트와의 연결이 강제로 끊어짐 -예외처리-');
-     // 연결해제
-     socket.destroy();
-    } else {
-    console.error('에러 발생:', err);
-    }
- });
+// HTTP 서버 생성
+const server = http.createServer((req, res) => {
+  // HTTP 요청을 처리하는 부분
+  res.writeHead(200, { 'Content-Type': 'text/plain' }); // 응답 헤더 설정
+  res.end('안녕, HTTP 서버!'); // 응답 본문 설정
 });
 
-// 서버가 지정한 포트(예: 3000)에서 대기합니다.
-const PORT = 33333;
+const PORT = 33333; // 사용할 포트 번호
+
+// 서버를 지정한 포트에서 대기
 server.listen(PORT, () => {
   console.log(`서버가 ${PORT} 포트에서 대기 중...`);
 });
