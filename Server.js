@@ -3,7 +3,6 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-const http = require('http');
 
 // HTTP 서버 생성
 const server = http.createServer((req, res) => {
