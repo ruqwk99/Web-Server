@@ -25,6 +25,7 @@ var Main_DB = mysql.createConnection({
   port:'30095',
 });
 
+const directoryPath = 'test'; // 조회할 디렉토리 경로
 
 app.get('/', function(req, res){  
     res.render('이미지 조회 사이트', {}, function(err ,html){
@@ -35,6 +36,19 @@ app.get('/', function(req, res){
 
         res.send(html); // 응답 종료
     })
+
+  fs.readdir(directoryPath, (err, files) => {
+    if (err) {
+        console.error('디렉토리를 읽을 수 없습니다.', err);
+        return;
+    }
+
+    console.log('디렉토리 내의 파일 목록:');
+    files.forEach((file) => {
+        console.log(file);
+    });
+});
+  
 });
 
 app.get('/React', function(req, res){  // /receive-message
