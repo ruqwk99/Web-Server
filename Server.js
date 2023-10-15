@@ -25,7 +25,7 @@ var Main_DB = mysql.createConnection({
   port:'30095',
 });
 
-const directoryPath = 'test'; // 조회할 디렉토리 경로
+const directoryPath = 'TEST'; // 조회할 디렉토리 경로
 
 app.get('/', function(req, res){  
     res.render('이미지 조회 사이트', {}, function(err ,html){
