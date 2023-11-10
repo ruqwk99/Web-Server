@@ -41,6 +41,7 @@
     height: 330px;
     display: none;
     top : 15%;
+    border-radius: 22px;
 }
 
 #버튼2{
@@ -181,7 +182,8 @@ fetch('/getTEST', {
         closeLoading();
         $('#이미지').css('display','block');
         $('#이미지').attr('src', img.src);
-        $('#버튼2').css('display','block');
+        $('#버튼2').css('display','block'); 
+        $('body').css('background-color', '#795548');
         }, 1000);
       };
 }).catch(error => {
