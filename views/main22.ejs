@@ -180,11 +180,11 @@ fetch('/getTEST', {
       img.onload = function() {
         setTimeout(() => {
         closeLoading();
+        $('body').css('background-color', '#795548');
         $('#이미지').css('display','block');
         $('#이미지').attr('src', img.src);
-        $('#버튼2').css('display','block'); 
-        $('body').css('background-color', '#795548');
-        }, 1000);
+        setTimeout(() => {$('#버튼2').css('display','block'); }, 3000);
+        }, 500);
       };
 }).catch(error => {
   console.error(' catch 에러 발생:', error);
