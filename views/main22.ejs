@@ -77,6 +77,7 @@
 
 <script>
 var 이미지테스트;
+var 텍스트테스트 = '';
 
 function openLoading() {
     //화면 높이와 너비를 구합니다.
@@ -89,20 +90,23 @@ function openLoading() {
     loadingImg += "<div id='loadingImg' style='position:absolute; top: calc(50% - (200px / 2)); width:100%; z-index:9999;'>";
     loadingImg += " <img src='./Spinner-1s-200px.gif' style='position: relative; display: block; margin: 0px auto;'/>";
     loadingImg += "</div>";
+    텍스트테스트 += "<div id='텍스트' style='position: relative; top: 12%; z-index: 10000;'>촬영중..</div>";
+
     //레이어 추가
     $('body')
         .append(mask)
         .append(loadingImg)
+        .append(텍스트테스트)
     //마스크의 높이와 너비로 전체 화면을 채운다.
     $('#mask').css({
             'width' : maskWidth,
             'height': maskHeight,
             'opacity' :'0.3'
     });
-    //마스크 표시
-    $('#mask').show();  
-    //로딩 이미지 표시
+    //마스크 표시  //로딩 이미지 표시
+    $('#mask').show();
     $('#loadingImg').show();
+    $('#텍스트').show();
 }
 function closeLoading() {
     $('#mask, #loadingImg, #로딩텍스트').hide();
@@ -141,13 +145,17 @@ function 이미지디코딩() {
     })
       .then(response => {
         if (response.ok) {
+          $('#텍스트').css('color', 'blue');
+          $('#텍스트').text('촬영 종료!');
           console.log('디코딩 응답확인');
           setTimeout(() => {
+            $('#텍스트').hide();
             SendRequest();
           }, 1000);
         } 
         else {
           console.log('디코딩 요청실패');
+          alert('인코딩실패');
         }
       })
       .catch(error => {
