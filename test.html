@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>거래내역 페이지</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .balance {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .transaction {
+            height: 75px;
+            background-color: white;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .time {
+            font-size: 12px;
+        }
+
+        .amount {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .description {
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .컬러레드 {
+            color: red;
+        }
+
+        .컬러블루 {
+            color: blue;
+        }
+
+        .컬러보라 {
+            color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>알짜배기통장</h1>
+        <div class="balance"><span id="total-balance"></span></div>
+    </header>
+
+    <div id="transactions"></div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-y1BnYBDMH1SUZqqIWItlq0UvoEX_1-I",
+            authDomain: "new-web99.firebaseapp.com",
+            projectId: "new-web99",
+            storageBucket: "new-web99.appspot.com",
+            messagingSenderId: "943312582235",
+            appId: "1:943312582235:web:2be2aeb63673a4deb4f17e",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'Web_DB', 'Setting');
+        const docGet = doc(db, 'Web_DB', 'doc');
+        let count = null;
+
+        count = await CountArrayFields();
+
+        getDoc(docGet).then((doc) => {
+            if (doc.exists()) {
+
+                const 잔액 = doc.data().DATA1;
+                document.getElementById('total-balance').innerText = `${잔액}원`; // 'DATA1' 필드 값 추출
+
+                // if (total != 테스트) {
+                //     console.log("DATA1 필드값이 업데이트되었습니다.");
+                //     return updateDoc(docRef, {
+                //         DATA1: `${total}`
+                //     });
+                // }
+                // else {
+                //     console.log("필드값이 동일하므로 업데이트XXXXX");
+                //     return;
+                // }
+
+            } else {
+                console.log("문서가 존재하지 않습니다.");
+            }
+        }).catch((error) => {
+            console.error("문서를 가져오거나 업데이트하는 중 오류 발생: ", error);
+        });
+
+        await fetchArray();
+
+        async function CountArrayFields() {
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.field) {
+                        const arrayKeys = Object.keys(data.field).filter(key => key.startsWith('array'));
+                        console.log(`총 ${arrayKeys.length} 개의 array 필드가 존재합니다.`);
+                        return arrayKeys.length
+                    } else {
+                        console.log("field 필드가 존재하지 않습니다.");
+                    }
+                } else {
+                    console.log("문서가 존재하지 않습니다.");
+                }
+            } catch (error) {
+                console.error("문서 읽기 중 오류 발생:", error);
+            }
+        }
+
+        async function fetchArray() {
+            let 합계 = 0;
+            let 날짜, 금액, 이름;
+
+            try {
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    for (let i = 0; i < count; i++) {
+                        const arrayKey = `array${i}`;
+                        if (data.field && data.field[arrayKey]) {
+                            날짜 = data.field[arrayKey][0];
+                            금액 = data.field[arrayKey][1];
+                            이름 = data.field[arrayKey][2];
+
+                            var colorClass = '';
+                            const transactionsDiv = document.getElementById('transactions');
+                            if (이름 == '세이프박스') {
+                                colorClass = '컬러보라';
+                            }
+                            else {
+                                colorClass = 금액.startsWith('-') ? '컬러레드' : '컬러블루';
+                            }
+                            const newTransaction = document.createElement('div');
+                            newTransaction.className = 'transaction';
+
+                            newTransaction.innerHTML = `
+                    <div class="transaction-header">
+                        <div class="date">${날짜}</div>
+                        <div class="amount ${colorClass}">${금액}원</div>
+                    </div>
+                    <div class="description">${이름}</div> `;
+
+                            transactionsDiv.insertBefore(newTransaction, transactionsDiv.firstChild);
+                            console.log("필드 업데이트");
+                        }
+                        else {
+                            console.log(`${arrayKey} 필드가 존재하지 않습니다. 반복문종료`);
+                            return;
+                        }
+
+                        // 금액합산
+                        // const transactionAmount = parseInt(금액.replace(/,/g, ''), 10);
+                        // 합계 += transactionAmount;
+                    }
+                    // document.getElementById('total-balance').innerText = 합계.toLocaleString();
+                } else {
+                    console.log("문서가 존재하지 않습니다.");
+                }
+            } catch (error) {
+                console.error("문서 읽기 중 오류 발생:", error);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
